@@ -1,15 +1,17 @@
 # TODO
 # - unbundle phar, use system libs, etc
+%define		githash	3cef8c3
+%define		rel		0.5
 %define		php_min_version 5.3.3
 %include	/usr/lib/rpm/macros.php
 Summary:	PHP Coding Standards Fixer
 Name:		php-cs-fixer
 Version:	0.3.0
-Release:	0.4
+Release:	0.%{githash}.%{rel}
 License:	MIT
 Group:		Development/Languages/PHP
 Source0:	http://cs.sensiolabs.org/get/%{name}.phar
-# Source0-md5:	5cefff68fe01e635086de6b8b2dd35f7
+# Source0-md5:	501733ff21110855b7edb44bda998800
 URL:		http://cs.sensiolabs.org/
 Requires:	/usr/bin/php
 Requires:	php(core) >= %{php_min_version}
@@ -32,6 +34,15 @@ cp -p %{SOURCE0} .
 
 # breaks signature:
 #%{__sed} -i -e '1 s,#!.*php,#!/usr/bin/php,' php-cs-fixer.phar
+
+%build
+# PHP CS Fixer version 0.3-DEV by Fabien Potencier (3cef8c3)
+long_version=$(php php-cs-fixer.phar --version)
+ver=$(echo "${long_version}" | awk '$4 == "version" {v=$5; sub(/-DEV/, ".0", v); print v}')
+test "$ver" = %{version}
+
+githash=$(echo "${long_version##* }" | tr -d '()')
+test "$githash" = %{githash}
 
 %install
 rm -rf $RPM_BUILD_ROOT
