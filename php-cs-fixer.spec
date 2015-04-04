@@ -13,6 +13,10 @@ Group:		Development/Languages/PHP
 Source0:	http://get.sensiolabs.org/php-cs-fixer.phar?/%{name}-%{version}.phar
 # Source0-md5:	e85e483854cd95bf4d36806feaa93758
 URL:		http://cs.sensiolabs.org/
+BuildRequires:	%{php_name}-cli
+BuildRequires:	%{php_name}-ctype
+BuildRequires:	%{php_name}-phar
+BuildRequires:	%{php_name}-tokenizer
 Requires:	/usr/bin/php
 Requires:	php(core) >= %{php_min_version}
 Requires:	php(ctype)
