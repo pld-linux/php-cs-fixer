@@ -1,21 +1,23 @@
 # TODO
 # - unbundle phar, use system libs, etc
-%define		githash	3cef8c3
-%define		rel		0.5
-%define		php_min_version 5.3.3
+%define		githash	81a46f8
+%define		rel		1
+%define		php_min_version 5.3.6
 %include	/usr/lib/rpm/macros.php
 Summary:	PHP Coding Standards Fixer
 Name:		php-cs-fixer
-Version:	0.3.0
+Version:	1.6
 Release:	0.%{githash}.%{rel}
 License:	MIT
 Group:		Development/Languages/PHP
-Source0:	http://cs.sensiolabs.org/get/%{name}.phar
-# Source0-md5:	501733ff21110855b7edb44bda998800
+Source0:	http://get.sensiolabs.org/php-cs-fixer.phar?/%{name}-%{version}.phar
+# Source0-md5:	e85e483854cd95bf4d36806feaa93758
 URL:		http://cs.sensiolabs.org/
 Requires:	/usr/bin/php
 Requires:	php(core) >= %{php_min_version}
+Requires:	php(ctype)
 Requires:	php(phar)
+Requires:	php(tokenizer)
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -30,7 +32,7 @@ especially on large projects. This tool does the job for you.
 
 %prep
 %setup -qcT
-cp -p %{SOURCE0} .
+cp -p %{SOURCE0} php-cs-fixer.phar
 
 # breaks signature:
 #%{__sed} -i -e '1 s,#!.*php,#!/usr/bin/php,' php-cs-fixer.phar
