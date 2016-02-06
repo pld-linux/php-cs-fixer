@@ -1,27 +1,40 @@
-# TODO
-# - unbundle phar, use system libs, etc
-%define		githash	81a46f8
-%define		rel		1
+#
+# Conditional build:
+%bcond_with	tests		# build with tests
+
 %define		php_min_version 5.3.6
 %include	/usr/lib/rpm/macros.php
 Summary:	PHP Coding Standards Fixer
 Name:		php-cs-fixer
-Version:	1.6
-Release:	0.%{githash}.%{rel}
+Version:	1.11.1
+Release:	1
 License:	MIT
 Group:		Development/Languages/PHP
-Source0:	http://get.sensiolabs.org/php-cs-fixer.phar?/%{name}-%{version}.phar
-# Source0-md5:	e85e483854cd95bf4d36806feaa93758
+Source0:	https://github.com/FriendsOfPHP/PHP-CS-Fixer/archive/v%{version}/%{name}-%{version}.tar.gz
+# Source0-md5:	23e5281aa66097427107573b8bc8228c
+Source1:	autoload.php
+Patch0:		autoload.patch
 URL:		http://cs.sensiolabs.org/
+BuildRequires:	rpm-php-pearprov >= 4.4.2-11
+BuildRequires:	rpmbuild(macros) >= 1.461
+%if %{with tests}
 BuildRequires:	%{php_name}-cli
 BuildRequires:	%{php_name}-ctype
 BuildRequires:	%{php_name}-phar
 BuildRequires:	%{php_name}-tokenizer
+%endif
 Requires:	/usr/bin/php
 Requires:	php(core) >= %{php_min_version}
 Requires:	php(ctype)
 Requires:	php(phar)
 Requires:	php(tokenizer)
+Requires:	php-sebastian-diff >= 1.1
+Requires:	php-symfony2-ClassLoader >= 2.7.7
+Requires:	php-symfony2-Console >= 2.3
+Requires:	php-symfony2-EventDispatcher >= 2.1
+Requires:	php-symfony2-Finder >= 2.1
+Requires:	php-symfony2-Process >= 2.3
+Requires:	php-symfony2-Stopwatch >= 2.5
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -35,25 +48,22 @@ problems in your code, you know that fixing them by hand is tedious,
 especially on large projects. This tool does the job for you.
 
 %prep
-%setup -qcT
-cp -p %{SOURCE0} php-cs-fixer.phar
+%setup -qn PHP-CS-Fixer-%{version}
+%patch0 -p1
 
-# breaks signature:
-#%{__sed} -i -e '1 s,#!.*php,#!/usr/bin/php,' php-cs-fixer.phar
+mv Symfony/CS/Resources/phar-stub.php .
+cp -p %{SOURCE1} Symfony/CS/autoload.php
 
 %build
-# PHP CS Fixer version 0.3-DEV by Fabien Potencier (3cef8c3)
-long_version=$(php php-cs-fixer.phar --version)
-ver=$(echo "${long_version}" | awk '$4 == "version" {v=$5; sub(/-DEV/, ".0", v); print v}')
+ver=$(awk -F"'" '/const VERSION/{print $(NF-1)}' Symfony/CS/Fixer.php)
 test "$ver" = %{version}
-
-githash=$(echo "${long_version##* }" | tr -d '()')
-test "$githash" = %{githash}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_bindir}
-install -p php-cs-fixer.phar $RPM_BUILD_ROOT%{_bindir}/%{name}
+install -d $RPM_BUILD_ROOT{%{_bindir},%{php_data_dir}/Symfony/CS}
+cp -a Symfony $RPM_BUILD_ROOT%{php_data_dir}
+rm -r $RPM_BUILD_ROOT%{php_data_dir}/Symfony/CS/Tests
+install -p php-cs-fixer $RPM_BUILD_ROOT%{_bindir}/%{name}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -61,3 +71,4 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/%{name}
+%{php_data_dir}/Symfony/CS
