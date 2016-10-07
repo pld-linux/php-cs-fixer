@@ -6,12 +6,12 @@
 %include	/usr/lib/rpm/macros.php
 Summary:	PHP Coding Standards Fixer
 Name:		php-cs-fixer
-Version:	1.11.2
+Version:	1.11.8
 Release:	1
 License:	MIT
 Group:		Development/Languages/PHP
 Source0:	https://github.com/FriendsOfPHP/PHP-CS-Fixer/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	246d04a5e3c321f650a13743dd5b8604
+# Source0-md5:	9fbc4e18e4f68ead3e89464bf810103b
 Source1:	autoload.php
 Patch0:		autoload.patch
 URL:		http://cs.sensiolabs.org/
@@ -62,7 +62,6 @@ test "$ver" = %{version}
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_bindir},%{php_data_dir}/Symfony/CS}
 cp -a Symfony $RPM_BUILD_ROOT%{php_data_dir}
-rm -r $RPM_BUILD_ROOT%{php_data_dir}/Symfony/CS/Tests
 install -p php-cs-fixer $RPM_BUILD_ROOT%{_bindir}/%{name}
 
 %clean
