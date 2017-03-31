@@ -7,7 +7,7 @@
 Summary:	PHP Coding Standards Fixer
 Name:		php-cs-fixer
 Version:	1.11.8
-Release:	1
+Release:	2
 License:	MIT
 Group:		Development/Languages/PHP
 Source0:	https://github.com/FriendsOfPHP/PHP-CS-Fixer/archive/v%{version}/%{name}-%{version}.tar.gz
