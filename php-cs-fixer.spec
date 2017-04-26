@@ -6,12 +6,12 @@
 %include	/usr/lib/rpm/macros.php
 Summary:	PHP Coding Standards Fixer
 Name:		php-cs-fixer
-Version:	1.11.8
-Release:	2
+Version:	1.13.1
+Release:	1
 License:	MIT
 Group:		Development/Languages/PHP
 Source0:	https://github.com/FriendsOfPHP/PHP-CS-Fixer/archive/v%{version}/%{name}-%{version}.tar.gz
-# Source0-md5:	9fbc4e18e4f68ead3e89464bf810103b
+# Source0-md5:	9dbb09988ea36876d49601cb8e862939
 Source1:	autoload.php
 Patch0:		autoload.patch
 URL:		http://cs.sensiolabs.org/
