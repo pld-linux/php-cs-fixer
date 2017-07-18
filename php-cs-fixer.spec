@@ -7,7 +7,7 @@
 Summary:	PHP Coding Standards Fixer
 Name:		php-cs-fixer
 Version:	1.13.1
-Release:	2
+Release:	3
 License:	MIT
 Group:		Development/Languages/PHP
 Source0:	https://github.com/FriendsOfPHP/PHP-CS-Fixer/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -28,6 +28,7 @@ Requires:	/usr/bin/php
 Requires:	php(core) >= %{php_min_version}
 Requires:	php(ctype)
 Requires:	php(phar)
+Requires:	php(posix)
 Requires:	php(tokenizer)
 Requires:	php-sebastian-diff >= 1.1
 Requires:	php-symfony2-ClassLoader >= 2.7.7
