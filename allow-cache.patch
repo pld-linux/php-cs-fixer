@@ -1,0 +1,13 @@
+diff --git a/Symfony/CS/FileCacheManager.php b/Symfony/CS/FileCacheManager.php
+index 80dfb11b..98ef6243 100644
+--- a/Symfony/CS/FileCacheManager.php
++++ b/Symfony/CS/FileCacheManager.php
+@@ -94,7 +94,7 @@ private function isCacheAvailable()
+         static $result;
+ 
+         if (null === $result) {
+-            $result = $this->isEnabled && (ToolInfo::isInstalledAsPhar() || ToolInfo::isInstalledByComposer());
++            $result = $this->isEnabled;
+         }
+ 
+         return $result;

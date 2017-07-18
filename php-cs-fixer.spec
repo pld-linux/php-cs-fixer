@@ -7,13 +7,14 @@
 Summary:	PHP Coding Standards Fixer
 Name:		php-cs-fixer
 Version:	1.13.1
-Release:	1
+Release:	2
 License:	MIT
 Group:		Development/Languages/PHP
 Source0:	https://github.com/FriendsOfPHP/PHP-CS-Fixer/archive/v%{version}/%{name}-%{version}.tar.gz
 # Source0-md5:	9dbb09988ea36876d49601cb8e862939
 Source1:	autoload.php
 Patch0:		autoload.patch
+Patch1:		allow-cache.patch
 URL:		http://cs.sensiolabs.org/
 BuildRequires:	rpm-php-pearprov >= 4.4.2-11
 BuildRequires:	rpmbuild(macros) >= 1.461
@@ -50,6 +51,7 @@ especially on large projects. This tool does the job for you.
 %prep
 %setup -qn PHP-CS-Fixer-%{version}
 %patch0 -p1
+%patch1 -p1
 
 mv Symfony/CS/Resources/phar-stub.php .
 cp -p %{SOURCE1} Symfony/CS/autoload.php
