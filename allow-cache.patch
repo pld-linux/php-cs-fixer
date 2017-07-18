@@ -1,3 +1,7 @@
+
+upstream change that added this condition:
+https://github.com/FriendsOfPHP/PHP-CS-Fixer/pull/564
+
 diff --git a/Symfony/CS/FileCacheManager.php b/Symfony/CS/FileCacheManager.php
 index 80dfb11b..98ef6243 100644
 --- a/Symfony/CS/FileCacheManager.php
