@@ -3,7 +3,6 @@
 %bcond_with	tests		# build with tests
 
 %define		php_min_version 5.3.6
-%include	/usr/lib/rpm/macros.php
 Summary:	PHP Coding Standards Fixer
 Name:		php-cs-fixer
 Version:	1.13.3
