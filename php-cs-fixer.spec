@@ -50,8 +50,8 @@ especially on large projects. This tool does the job for you.
 
 %prep
 %setup -qn PHP-CS-Fixer-%{version}
-%patch0 -p1
-%patch1 -p1
+%patch -P0 -p1
+%patch -P1 -p1
 
 mv Symfony/CS/Resources/phar-stub.php .
 cp -p %{SOURCE1} Symfony/CS/autoload.php
